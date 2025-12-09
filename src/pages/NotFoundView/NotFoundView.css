@@ -1,0 +1,22 @@
+/* Basic styles for the 404 Not Found view */
+.notfound {
+  padding: 2rem 1.25rem;
+  text-align: center;
+}
+.notfound__title {
+  font-size: 2rem;
+  margin: 0 0 0.5rem 0;
+}
+.notfound__message {
+  color: #666;
+  margin: 0 0 1rem 0;
+}
+.notfound__link {
+  display: inline-block;
+  padding: 0.5rem 0.85rem;
+  background: #2563eb;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+}

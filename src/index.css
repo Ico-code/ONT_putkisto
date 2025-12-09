@@ -1,0 +1,125 @@
+/* ---------------------------------
+1. Font Import (Inter - Best for UI/Dashboards)
+---------------------------------
+*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+
+/* ---------------------------------
+2. Theme Variables (Defining Light/Dark Modes)
+---------------------------------
+*/
+
+:root {
+    /* Light Theme Defaults */
+    --color-bg-primary: #f9fafb; /* Lighter background */
+    --color-bg-secondary: #1D2125; /* Component/Surface background */
+    --color-text-primary: #5585c8; /* Dark text */
+    --color-text-muted: #6b7280;
+    --color-border: #e5e7eb;
+    --color-brand-blue: #2563eb;
+    --color-brand-blue-bg: #eff6ff;
+    --color-success: #059669;
+}
+
+[data-theme='dark'] {
+    /* Dark Theme Overrides */
+    --color-bg-primary: #0f172a; /* Slate-900 */
+    --color-bg-secondary: #1e293b; /* Slate-800 */
+    --color-text-primary: #f3f4f6; /* Light text */
+    --color-text-muted: #94a3b8;
+    --color-border: #334155;
+    --color-brand-blue: #60a5fa;
+    --color-brand-blue-bg: #1e3a8a;
+    --color-success: #34d399;
+}
+
+/* ---------------------------------
+3. Base Global Styling (Applying Theme Variables & Typography)
+---------------------------------
+*/
+
+html {
+    /* Set rem base to 10px */
+    font-size: 62.5%; 
+}
+
+body {
+    /* Applied Typography: Inter font family */
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    font-size: 1rem; /* Standard 16px font size */
+
+    /* Theme application */
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    
+    /* Global layout and reset */
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    
+    /* CSS for smooth theme transition */
+    transition: background-color 0.3s, color 0.3s; 
+    
+    /* Ensure scroll is smooth */
+    scroll-behavior: smooth;
+    
+    /* Optimize font rendering */
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reset for headings */
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+/* Ensure common text elements inherit the font and remove default margins/padding */
+p, ul, ol, li {
+    font-family: inherit;
+    line-height: inherit;
+    margin: 0; 
+    padding: 0;
+}
+
+/* Link Styling */
+a {
+    font-weight: 500;
+    color: var(--color-brand-blue);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    filter: brightness(1.2); 
+}
+
+/* General button styling (inherited by other elements) */
+button {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit; /* Use Inter */
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: background-color 0.25s, border-color 0.25s;
+}
+
+button:hover {
+    border-color: var(--color-brand-blue);
+}
+
+button:focus,
+button:focus-visible {
+    outline: 4px auto var(--color-brand-blue);
+}

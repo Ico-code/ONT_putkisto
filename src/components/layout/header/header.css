@@ -1,0 +1,114 @@
+.header {
+    height: 30px;
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-bg-secondary) !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    flex-shrink: 0;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.searchBar {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-bg-primary);
+    border-radius: 8px;
+    padding: 8px 12px;
+    width: 100%;
+    max-width: 400px;
+    margin-right: 20px;
+}
+
+.searchIcon {
+    color: var(--color-text-muted);
+}
+
+.searchBar input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 0.9rem;
+    color: var(--color-text-primary);
+    width: 100%;
+}
+
+.searchBar input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.controlButton {
+    padding: 8px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    color: var(--color-text-muted);
+}
+
+.controlButton:hover {
+    background-color: var(--color-border);
+}
+
+.notificationWrapper {
+    position: relative;
+}
+
+.notificationBadge {
+    position: absolute; 
+    top: 4px; 
+    right: 4px; 
+    width: 8px; 
+    height: 8px; 
+    background-color: #ef4444; 
+    border-radius: 50%;
+    border: 2px solid var(--color-bg-secondary);
+}
+
+.avatar {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.userProfile {
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    position: relative; 
+    cursor: pointer;
+}
+
+.userInfo {
+    text-align: right; 
+    display: none; 
+}
+
+/* Show user info block only on larger screens (min-width: 600px) */
+@media (min-width: 600px) {
+    .userInfo {
+        display: block;
+    }
+}
+
+.userName {
+    margin: 0; 
+    font-weight: 500; 
+    line-height: 1;
+    color: var(--color-text-primary);
+}
+
+.userRole {
+    margin: 0; 
+    font-size: 0.75rem; 
+    color: var(--color-text-muted);
+}

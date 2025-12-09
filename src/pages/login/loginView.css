@@ -1,0 +1,35 @@
+/* Basic styles for a simple login view */
+.login {
+  padding: 1.25rem;
+  max-width: 420px;
+  margin: 2rem auto;
+}
+.login__title {
+  font-size: 1.5rem;
+  margin: 0 0 1rem 0;
+}
+.login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.login__label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  color: #111;
+}
+.login__input {
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.login__button {
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
+  border: none;
+  background: #2563eb; /* blue-600 */
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}

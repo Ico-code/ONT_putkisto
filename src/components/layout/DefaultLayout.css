@@ -1,0 +1,36 @@
+/* Minimal layout styles to arrange Sidebar, Header and content */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f8fafc;
+  max-width: 100vw;
+}
+.app-layout.dark {
+  background: #0f172a; /* dark background for demo */
+}
+.app-layout__content {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  width: 100%;
+  min-width: 70%;
+}
+.app-layout__view {
+  padding: 1rem 1.25rem;
+  flex: 1 1 auto;
+  max-width: 80vw;
+}
+
+/* Keep header pinned on top */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: transparent;
+}
+
+/* When the sidebar is collapsed, allow the content to expand */
+.app-layout__content.collapsed-sidebar {
+  max-width: 96%;
+  transition: max-width 0.18s ease;
+}

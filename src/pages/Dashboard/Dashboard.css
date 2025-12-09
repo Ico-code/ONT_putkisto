@@ -1,0 +1,70 @@
+/* Basic styling for the Dashboard page */
+.dashboard {
+  padding: 1.25rem;
+}
+
+.dashboard__title {
+  font-size: 1.75rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.dashboard__subtitle {
+  color: #666;
+  margin: 0;
+}
+
+/* Recent projects card grid */
+.recentProjects {
+  margin-top: 1.25rem;
+}
+
+.recentProjects__title {
+  font-size: 1rem;
+  margin: 0 0 0.75rem 0;
+}
+
+.recentProjects__list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .recentProjects__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .recentProjects__list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.recentProjectItem {
+  display: block;
+  background: var(--surface, #fff);
+  color: var(--text, #111);
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  text-decoration: none;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.recentProjectItem:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.recentProjectName {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.recentProjectMeta {
+  font-size: 12px;
+  color: #666;
+}
+
+.muted { color: #666 }
