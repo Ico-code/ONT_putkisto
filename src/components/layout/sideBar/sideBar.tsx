@@ -6,7 +6,7 @@ import {
   FolderKanban,
   Plus,
   GitMerge,
-  PanelRightOpen
+  PanelRightOpen,
 } from "lucide-react";
 import { NavLink } from "react-router";
 import type { Project } from "../../../types/ProjectTypes";
@@ -18,9 +18,9 @@ interface SidebarProps {
   onToggleCollapsed?: () => void; // Toggle handler passed from parent
 }
 
-import useProjects from '../../../hooks/useProjects'
-import NewProjectModal from '../../../modals/NewProjectModal'
-import { useNavigate } from 'react-router'
+import useProjects from "../../../hooks/useProjects";
+import NewProjectModal from "../../../modals/NewProjectModal";
+import { useNavigate } from "react-router";
 
 export const Sidebar: React.FC<SidebarProps> = ({
   projects,
@@ -36,15 +36,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
     return `navLink ${activeRoute === path ? "active" : ""}`;
   };
   // controlled state; toggle passed via props
-  const toggleCollapsed = () => onToggleCollapsed?.()
+  const toggleCollapsed = () => onToggleCollapsed?.();
 
-  const { projects: hookProjects, addProject } = useProjects()
-  const displayProjects = projects ?? hookProjects
-  const [isNewProjectOpen, setIsNewProjectOpen] = useState(false)
-  const navigate = useNavigate()
+  const { projects: hookProjects, addProject } = useProjects();
+  const displayProjects = projects ?? hookProjects;
+  const [isNewProjectOpen, setIsNewProjectOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
-    <aside className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
+    <aside className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
       <div className="logo">
         <GitMerge size={projectIconSize} className="linkIcon" />
         TaskFlow
@@ -57,16 +57,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
               className="collapseSidenav"
               onClick={toggleCollapsed}
               aria-expanded={!isCollapsed}
-              aria-label={isCollapsed ? 'Open sidebar' : 'Collapse sidebar'}
-              title={isCollapsed ? 'Open sidebar' : 'Collapse sidebar'}
+              aria-label={isCollapsed ? "Open sidebar" : "Collapse sidebar"}
+              title={isCollapsed ? "Open sidebar" : "Collapse sidebar"}
             >
-                <PanelRightOpen size={16} />
+              <PanelRightOpen size={16} />
             </button>
           </div>
 
-            <NavLink to="/" className={getLinkClass("/")}>
+          <NavLink to="/" className={getLinkClass("/")}>
             <LayoutDashboard size={projectIconSize} className="linkIcon" />
-            <p style={isCollapsed ? { display: 'none' } : {}}>Dashboard</p>
+            <p style={isCollapsed ? { display: "none" } : {}}>Dashboard</p>
           </NavLink>
         </div>
 
@@ -104,11 +104,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
         isOpen={isNewProjectOpen}
         onClose={() => setIsNewProjectOpen(false)}
         onCreate={(name: string) => {
-          const id = `p_${Date.now()}_${Math.floor(Math.random() * 1000)}`
-          const proj = { id, name, isActive: true }
-          addProject(proj)
-          setIsNewProjectOpen(false)
-          navigate(`/projects/${id}`)
+          const id = `p_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+          const proj = { id, name, isActive: true };
+          addProject(proj);
+          setIsNewProjectOpen(false);
+          navigate(`/projects/${id}`);
         }}
       />
     </aside>

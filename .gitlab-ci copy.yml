@@ -7,22 +7,22 @@ default:
   image: node:alpine
 
 stages:
-- lint
-- build
-- test
-- deploy
+  - lint
+  - build
+  - test
+  - deploy
 
 linting:
   stage: lint
   script:
-  - npm ci
-  - npm run lint
+    - npm ci
+    - npm run lint
 
 build-app:
   stage: build
   script:
-  - npm ci
-  - npm run build
+    - npm ci
+    - npm run build
   artifacts:
     paths:
       - dist/
@@ -30,8 +30,8 @@ build-app:
 run-unit-tests:
   stage: test
   script:
-  - npm ci
-  - npm run test
+    - npm ci
+    - npm run test
 
 run-e2e-tests:
   stage: test
@@ -43,20 +43,19 @@ run-e2e-tests:
 deploy-to-dev:
   stage: deploy
   only:
-  - dev
+    - dev
   needs:
     - job: build
       artifacts: true
   script:
-  - rsync -av dist/ "$DEV_USER@$DEV_HOST:/var/www/$APP_NAME"
-  
+    - rsync -av dist/ "$DEV_USER@$DEV_HOST:/var/www/$APP_NAME"
 
 deploy-to-prod:
   stage: deploy
   only:
-  - main
+    - main
   needs:
     - job: build
       artifacts: true
   script:
-  - rsync -av dist/ "$PROD_USER@$PROD_HOST:/var/www/$APP_NAME"
+    - rsync -av dist/ "$PROD_USER@$PROD_HOST:/var/www/$APP_NAME"

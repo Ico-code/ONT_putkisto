@@ -1,26 +1,29 @@
-import React, { useState } from 'react'
-import './NewProjectModal.css'
+import React, { useState } from "react";
+import "./NewProjectModal.css";
 
 interface Props {
-  isOpen: boolean
-  onClose: () => void
-  onCreate: (name: string) => void
+  isOpen: boolean;
+  onClose: () => void;
+  onCreate: (name: string) => void;
 }
 
 const NewProjectModal: React.FC<Props> = ({ isOpen, onClose, onCreate }) => {
-  if (!isOpen) return null
+  if (!isOpen) return null;
 
-  return <NewProjectForm onClose={onClose} onCreate={onCreate} />
-}
+  return <NewProjectForm onClose={onClose} onCreate={onCreate} />;
+};
 
-const NewProjectForm: React.FC<Omit<Props, 'isOpen'>> = ({ onClose, onCreate }) => {
-  const [name, setName] = useState('')
+const NewProjectForm: React.FC<Omit<Props, "isOpen">> = ({
+  onClose,
+  onCreate,
+}) => {
+  const [name, setName] = useState("");
 
   const submit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!name.trim()) return
-    onCreate(name.trim())
-  }
+    e.preventDefault();
+    if (!name.trim()) return;
+    onCreate(name.trim());
+  };
 
   return (
     <div className="np-modal-overlay" role="dialog" aria-modal="true">
@@ -38,7 +41,11 @@ const NewProjectForm: React.FC<Omit<Props, 'isOpen'>> = ({ onClose, onCreate }) 
             />
           </label>
           <div className="np-actions">
-            <button type="button" className="np-btn np-cancel" onClick={onClose}>
+            <button
+              type="button"
+              className="np-btn np-cancel"
+              onClick={onClose}
+            >
               Cancel
             </button>
             <button type="submit" className="np-btn np-primary">
@@ -48,7 +55,7 @@ const NewProjectForm: React.FC<Omit<Props, 'isOpen'>> = ({ onClose, onCreate }) 
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NewProjectModal
+export default NewProjectModal;

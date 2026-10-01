@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
     <Routes>
       {/* All routes wrapped with a shared layout */}
-      <Route element={<DefaultLayout />}> 
+      <Route element={<DefaultLayout />}>
         <Route path="/" element={<DashboardView />} />
         <Route path="/projects/:projectId" element={<KanbanView />} />
         <Route path="/Kanban" element={<KanbanView />} />
@@ -19,5 +19,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="*" element={<NotFoundView />} />
       </Route>
     </Routes>
-  </BrowserRouter>
+  </BrowserRouter>,
 );

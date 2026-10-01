@@ -24,7 +24,7 @@ linting-check:
       - lint-output.txt
 
 formatting-check:
-  stage: lint
+  stage: format
   script:
     - npm ci
     - npm run format:check

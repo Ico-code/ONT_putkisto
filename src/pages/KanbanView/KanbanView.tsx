@@ -1,34 +1,34 @@
 import React, { useState } from "react";
 import "./KanbanView.css";
-import useBoard from '../../hooks/useBoard'
+import useBoard from "../../hooks/useBoard";
 import type { Task } from "../../types/ProjectTypes";
-import { useParams } from 'react-router'
-import useProjects from '../../hooks/useProjects'
+import { useParams } from "react-router";
+import useProjects from "../../hooks/useProjects";
 
 type Props = {
   projectId?: string;
 };
 
-
 const KanbanView: React.FC<Props> = ({ projectId: propProjectId }) => {
-  const params = useParams()
-  const projectId = propProjectId ?? params.projectId
-  const { projects } = useProjects()
-  const project = projects.find((p) => p.id === projectId)
+  const params = useParams();
+  const projectId = propProjectId ?? params.projectId;
+  const { projects } = useProjects();
+  const project = projects.find((p) => p.id === projectId);
 
-  const { columns, addTask, deleteTask, editTask, moveTask } = useBoard(projectId)
+  const { columns, addTask, deleteTask, editTask, moveTask } =
+    useBoard(projectId);
 
-  const [newTaskTitle, setNewTaskTitle] = useState("")
-  const [newTaskColumn, setNewTaskColumn] = useState<string>("todo")
+  const [newTaskTitle, setNewTaskTitle] = useState("");
+  const [newTaskColumn, setNewTaskColumn] = useState<string>("todo");
 
   const onDragStart = (
     e: React.DragEvent,
     taskId: string,
-    fromColumnId: string
+    fromColumnId: string,
   ) => {
     e.dataTransfer.setData(
       "text/plain",
-      JSON.stringify({ taskId, fromColumnId })
+      JSON.stringify({ taskId, fromColumnId }),
     );
     e.dataTransfer.effectAllowed = "move";
   };
@@ -41,7 +41,7 @@ const KanbanView: React.FC<Props> = ({ projectId: propProjectId }) => {
   const onDropOnColumn = (
     e: React.DragEvent,
     toColumnId: string,
-    beforeTaskId?: string | null
+    beforeTaskId?: string | null,
   ) => {
     e.preventDefault();
     const payloadRaw = e.dataTransfer.getData("text/plain");
@@ -54,7 +54,7 @@ const KanbanView: React.FC<Props> = ({ projectId: propProjectId }) => {
       };
 
       if (fromColumnId === toColumnId && !beforeTaskId) return;
-      moveTask(taskId, toColumnId, beforeTaskId ?? null)
+      moveTask(taskId, toColumnId, beforeTaskId ?? null);
     } catch (err) {
       void err;
     }
@@ -63,23 +63,25 @@ const KanbanView: React.FC<Props> = ({ projectId: propProjectId }) => {
   const handleAddTask = (e?: React.FormEvent) => {
     e?.preventDefault();
     if (!newTaskTitle.trim()) return;
-    const newTask: Task = { id: `t${Date.now()}`, title: newTaskTitle.trim() }
-    addTask(newTaskColumn, newTask)
+    const newTask: Task = { id: `t${Date.now()}`, title: newTaskTitle.trim() };
+    addTask(newTaskColumn, newTask);
     setNewTaskTitle("");
   };
 
-  const handleDeleteTask = (taskId: string) => deleteTask(taskId)
+  const handleDeleteTask = (taskId: string) => deleteTask(taskId);
   const handleEditTask = (taskId: string) => {
-    const newTitle = prompt('Edit task title')
-    if (!newTitle) return
-    editTask(taskId, { title: newTitle })
-  }
+    const newTitle = prompt("Edit task title");
+    if (!newTitle) return;
+    editTask(taskId, { title: newTitle });
+  };
 
   return (
     <main className="kanban">
       <header className="kanban__header">
-          <div className="kanban__heading">
-          <h1 className="kanban__title">{project ? project.name : 'Kanban View'}</h1>
+        <div className="kanban__heading">
+          <h1 className="kanban__title">
+            {project ? project.name : "Kanban View"}
+          </h1>
           <p className="kanban__subtitle">
             Project ID: {projectId ?? "none selected"}
           </p>
