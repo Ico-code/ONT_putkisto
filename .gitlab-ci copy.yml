@@ -1,5 +1,5 @@
 default:
-  image: node:18-alpine
+  image: node:alpine
 
 stages:
   - lint
