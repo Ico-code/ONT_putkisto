@@ -7,14 +7,13 @@ default:
   image: node:alpine
 
 stages:
-  - lint
-  - format
+  - quality-check
   - build
   - test
   - deploy
 
 linting-check:
-  stage: lint
+  stage: quality-check
   script:
     - npm ci
     - npm run lint > lint-output.txt 2>&1
@@ -24,7 +23,7 @@ linting-check:
       - lint-output.txt
 
 formatting-check:
-  stage: format
+  stage: quality-check
   script:
     - npm ci
     - npm run format:check
