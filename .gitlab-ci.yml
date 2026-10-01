@@ -45,7 +45,7 @@ deploy-to-dev:
   only:
   - dev
   needs:
-    - job: build
+    - job: build-app
       artifacts: true
   script:
   - rsync -av dist/ "$DEV_USER@$DEV_HOST:/var/www/$APP_NAME"
@@ -56,7 +56,7 @@ deploy-to-prod:
   only:
   - main
   needs:
-    - job: build
+    - job: build-app
       artifacts: true
   script:
   - rsync -av dist/ "$PROD_USER@$PROD_HOST:/var/www/$APP_NAME"
