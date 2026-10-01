@@ -1,10 +1,13 @@
-cache:
-  paths:
-    - node_modules/
-    - .npm/
 
 default:
   image: node:alpine
+  cache: 
+    key: $COMMIT_REF_SLUG
+    paths:
+      - .npm/
+  before_script:
+    - npm ci --cache .npm --prefer-offline
+
 
 stages:
   - quality-check
@@ -15,23 +18,21 @@ stages:
 linting-check:
   stage: quality-check
   script:
-    - npm ci
     - npm run lint > lint-output.txt 2>&1
   artifacts:
     when: on_failure
+    expire_in: 1 week
     paths:
       - lint-output.txt
 
 formatting-check:
   stage: quality-check
   script:
-    - npm ci
     - npm run format:check
 
 build-app:
   stage: build
   script:
-    - npm ci
     - npm run build
   artifacts:
     paths:
@@ -40,7 +41,6 @@ build-app:
 run-unit-tests:
   stage: test
   script:
-    - npm ci
     - npm run test
 
 run-e2e-tests:
