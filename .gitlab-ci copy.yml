@@ -1,34 +1,28 @@
+cache:
+  paths:
+    - node_modules/
+    - .npm/
+
 default:
   image: node:alpine
 
 stages:
-  - lint
-  - format
-  - build
-  - test
-  - deploy
+- lint
+- build
+- test
+- deploy
 
-linting-check:
+linting:
   stage: lint
   script:
-    - npm ci
-    - npm run lint > lint-output.txt 2>&1
-  artifacts:
-    when: on_failure
-    paths:
-      - lint-output.txt
-
-formatting-check:
-  stage: lint
-  script:
-    - npm ci
-    - npm run format:check
+  - npm ci
+  - npm run lint
 
 build-app:
   stage: build
   script:
-    - npm ci
-    - npm run build
+  - npm ci
+  - npm run build
   artifacts:
     paths:
       - dist/
@@ -36,62 +30,33 @@ build-app:
 run-unit-tests:
   stage: test
   script:
-    - npm ci
-    - npm run test
+  - npm ci
+  - npm run test
 
 run-e2e-tests:
   stage: test
-  needs:
-    - job: build-app
-      artifacts: true
-  before_script:
-    - apk add --no-cache chromium chromium-chromedriver python3 py3-pip
-    - pip install --no-cache-dir --break-system-packages selenium
+  image: python:3.12
   script:
-    - npx --yes serve -s dist -l 4173 &
-    - sleep 3
-    - export CHROME_BIN=/usr/bin/chromium-browser
-    - export APP_URL=http://127.0.0.1:4173/projects/p1
+    - pip install selenium webdriver-manager
     - python3 Scripts/test-kanban-view.py
 
 deploy-to-dev:
   stage: deploy
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "main"'
+  only:
+  - dev
   needs:
-    - job: build-app
+    - job: build
       artifacts: true
-  before_script:
-    - apk add --no-cache rsync openssh-client
-    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
-    - echo "$DEV_SSH_KEY" > ~/.ssh/id_rsa
-    - chmod 600 ~/.ssh/id_rsa
-    - ssh-keyscan -H "$DEV_HOST" >> ~/.ssh/known_hosts
-    - chmod 644 ~/.ssh/known_hosts
   script:
-    - rsync -av --delete dist/ "$DEV_USER@$DEV_HOST:/var/www/$APP_NAME"
-  environment:
-    name: development
-    url: http://$DEV_HOST
+  - rsync -av dist/ "$DEV_USER@$DEV_HOST:/var/www/$APP_NAME"
+  
 
 deploy-to-prod:
   stage: deploy
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "prod"'
-      when: manual
-      allow_failure: false
+  only:
+  - main
   needs:
-    - job: build-app
+    - job: build
       artifacts: true
-  before_script:
-    - apk add --no-cache rsync openssh-client
-    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
-    - echo "$PROD_SSH_KEY" > ~/.ssh/id_rsa
-    - chmod 600 ~/.ssh/id_rsa
-    - ssh-keyscan -H "$PROD_HOST" >> ~/.ssh/known_hosts
-    - chmod 644 ~/.ssh/known_hosts
   script:
-    - rsync -av --delete dist/ "$PROD_USER@$PROD_HOST:/var/www/$APP_NAME"
-  environment:
-    name: production
-    url: https://$PROD_HOST  
+  - rsync -av dist/ "$PROD_USER@$PROD_HOST:/var/www/$APP_NAME"
