@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // Changed to a standard global CSS import
-import "./Sidebar.css";
+import "./sideBar.css";
 import {
   LayoutDashboard,
   FolderKanban,

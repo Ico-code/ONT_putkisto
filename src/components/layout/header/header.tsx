@@ -1,6 +1,6 @@
 import React from "react";
 // Changed to a standard global CSS import
-import "./Header.css";
+import "./header.css";
 import { Search, Moon, Sun } from "lucide-react";
 
 interface User {
