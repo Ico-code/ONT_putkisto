@@ -2,7 +2,7 @@
 default:
   image: node:alpine
   cache: 
-    key: $COMMIT_REF_SLUG
+    key: $CI_COMMIT_REF_SLUG
     paths:
       - .npm/
   before_script:
