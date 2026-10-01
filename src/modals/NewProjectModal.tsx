@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import './NewProjectModal.css'
 
 interface Props {
@@ -8,13 +8,13 @@ interface Props {
 }
 
 const NewProjectModal: React.FC<Props> = ({ isOpen, onClose, onCreate }) => {
-  const [name, setName] = useState('')
-
-  useEffect(() => {
-    if (isOpen) setName('')
-  }, [isOpen])
-
   if (!isOpen) return null
+
+  return <NewProjectForm onClose={onClose} onCreate={onCreate} />
+}
+
+const NewProjectForm: React.FC<Omit<Props, 'isOpen'>> = ({ onClose, onCreate }) => {
+  const [name, setName] = useState('')
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault()

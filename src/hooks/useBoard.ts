@@ -60,7 +60,7 @@ export function useBoard(projectId?: string) {
       try { if (projectId) updateProject?.(projectId, { lastVisited: Date.now() }) } catch (e) { void e }
       return next
     })
-  }, [])
+  }, [projectId, updateProject])
 
   const deleteTask = useCallback((taskId: string) => {
     setColumns((prev) => {
@@ -69,7 +69,7 @@ export function useBoard(projectId?: string) {
       try { if (projectId) updateProject?.(projectId, { lastVisited: Date.now() }) } catch (e) { void e }
       return next
     })
-  }, [])
+  }, [projectId, updateProject])
 
   const editTask = useCallback((taskId: string, patch: Partial<Task>) => {
     setColumns((prev) => {
@@ -78,7 +78,7 @@ export function useBoard(projectId?: string) {
       try { if (projectId) updateProject?.(projectId, { lastVisited: Date.now() }) } catch (e) { void e }
       return next
     })
-  }, [])
+  }, [projectId, updateProject])
 
   const moveTask = useCallback((taskId: string, toColumnId: string, beforeTaskId?: string | null) => {
     setColumns((prev) => {
@@ -100,7 +100,7 @@ export function useBoard(projectId?: string) {
       try { if (projectId) updateProject?.(projectId, { lastVisited: Date.now() }) } catch (e) { void e }
       return next
     })
-  }, [])
+  }, [projectId, updateProject])
 
   const moveTaskLeft = useCallback((taskId: string) => {
     setColumns((prev) => {
@@ -117,7 +117,7 @@ export function useBoard(projectId?: string) {
       try { if (projectId) updateProject?.(projectId, { lastVisited: Date.now() }) } catch (e) { void e }
       return next
     })
-  }, [])
+  }, [projectId, updateProject])
 
   const moveTaskRight = useCallback((taskId: string) => {
     setColumns((prev) => {
@@ -134,7 +134,7 @@ export function useBoard(projectId?: string) {
       try { if (projectId) updateProject?.(projectId, { lastVisited: Date.now() }) } catch (e) { void e }
       return next
     })
-  }, [])
+  }, [projectId, updateProject])
 
   return {
     columns: columns ?? [],
