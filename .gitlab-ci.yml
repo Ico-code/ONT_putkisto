@@ -71,7 +71,7 @@ deploy-to-dev:
     - ssh-keyscan -H "$DEV_HOST" >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    - rsync -av --delete dist/ "$DEV_USER@$DEV_HOST:/var/www/$APP_NAME"
+    - rsync -av --delete -e "ssh -i ~/.ssh/id_ed25519" dist/ "$DEV_USER@$DEV_HOST:/var/www/$APP_NAME"
   environment:
     name: development
     url: http://$DEV_HOST
@@ -93,7 +93,7 @@ deploy-to-prod:
     - ssh-keyscan -H "$PROD_HOST" >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    - rsync -av --delete dist/ "$PROD_USER@$PROD_HOST:/var/www/$APP_NAME"
+    - rsync -av --delete -e "ssh -i ~/.ssh/id_ed25519" dist/ "$PROD_USER@$PROD_HOST:/var/www/$APP_NAME"
   environment:
     name: production
     url: https://$PROD_HOST
