@@ -7,7 +7,7 @@ default:
   before_script:
     - npm ci --cache .npm --prefer-offline
 
-variables: 
+variables:
   a11y_urls: http://$DEV_HOST
 
 stages:
@@ -58,9 +58,9 @@ build-app:
 run-unit-tests:
   stage: test
   needs:
-      - job: linting-check
-      - job: formatting-check
-      - job: code_quality
+    - job: linting-check
+    - job: formatting-check
+    - job: code_quality
   script:
     - npm run test
 
