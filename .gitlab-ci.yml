@@ -18,7 +18,7 @@ include:
 
 code_quality:
   stage: quality-check
-  before_script: []  # Clears global npm ci
+  before_script: [] # Clears global npm ci
   cache: []
 
 linting-check:
