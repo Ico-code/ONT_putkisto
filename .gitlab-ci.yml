@@ -7,14 +7,25 @@ default:
   before_script:
     - npm ci --cache .npm --prefer-offline
 
+variables: 
+  a11y_urls: http://$DEV_HOST
+
 stages:
   - quality-check
+  - accessibility
   - build
   - test
   - deploy
 
 include:
-  template: Code-Quality.gitlab-ci.yml
+  - template: Code-Quality.gitlab-ci.yml
+  - template: Verify/Accessibility.gitlab-ci.yml
+
+accessibility:
+  stage: accessibility
+  before_script: []
+  cache: []
+  needs: []
 
 code_quality:
   stage: quality-check
