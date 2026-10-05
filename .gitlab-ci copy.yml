@@ -60,8 +60,7 @@ deploy-to-prod:
   script:
     - rsync -av dist/ "$PROD_USER@$PROD_HOST:/var/www/$APP_NAME"
 
-
 include:
-  - component: <fully-qualified-domain-name>/<project-path>/<component-name>@<specific-version> 
+  - component: <fully-qualified-domain-name>/<project-path>/<component-name>@<specific-version>
     inputs:
       stage: testing
