@@ -49,6 +49,7 @@ run-unit-tests:
   needs:
       - job: linting-check
       - job: formatting-check
+      - job: code_quality
   script:
     - npm run test
 
