@@ -16,6 +16,11 @@ stages:
 include:
   template: Code-Quality.gitlab-ci.yml
 
+code_quality:
+  stage: quality-check
+  before_script: []  # Clears global npm ci
+  cache: []
+
 linting-check:
   stage: quality-check
   script:
