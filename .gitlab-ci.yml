@@ -18,7 +18,7 @@ include:
 
 code_quality:
   stage: quality-check
-  before_script: [] # Clears global npm ci
+  before_script: []
   cache: []
 
 linting-check:
@@ -46,14 +46,14 @@ build-app:
 
 run-unit-tests:
   stage: test
+  needs:
+      - job: linting-check
+      - job: formatting-check
   script:
     - npm run test
 
 run-e2e-tests:
   stage: test
-  needs:
-    - job: build-app
-      artifacts: true
   before_script:
     - apk add --no-cache chromium chromium-chromedriver python3 py3-pip
     - pip install --no-cache-dir --break-system-packages selenium
@@ -68,9 +68,6 @@ deploy-to-dev:
   stage: deploy
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
-  needs:
-    - job: build-app
-      artifacts: true
   before_script:
     - apk add --no-cache rsync openssh-client
     - mkdir -p ~/.ssh && chmod 700 ~/.ssh
@@ -90,9 +87,6 @@ deploy-to-prod:
     - if: '$CI_COMMIT_BRANCH == "prod"'
       when: manual
       allow_failure: false
-  needs:
-    - job: build-app
-      artifacts: true
   before_script:
     - apk add --no-cache rsync openssh-client
     - mkdir -p ~/.ssh && chmod 700 ~/.ssh

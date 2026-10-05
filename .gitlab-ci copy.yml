@@ -61,6 +61,20 @@ deploy-to-prod:
     - rsync -av dist/ "$PROD_USER@$PROD_HOST:/var/www/$APP_NAME"
 
 include:
-  - component: <fully-qualified-domain-name>/<project-path>/<component-name>@<specific-version>
-    inputs:
-      stage: testing
+  - <fully-qualified-domain-name>/<project-path>/<component-name>@<specific-version>
+
+
+
+child_a:
+  stage: deploy
+  trigger:
+    include: "some pipeline 1"
+  rules:
+    if: '$CI_COMMIT_TAG'
+
+child_b:
+  stage: deploy
+  trigger:
+    include: "some pipeline 2"
+  rules:
+    if: '$CI_COMMIT_BRANCH == "main"'
