@@ -21,7 +21,7 @@ include:
   - template: Code-Quality.gitlab-ci.yml
   - template: Verify/Accessibility.gitlab-ci.yml
 
-ally:
+a11y:
   stage: accessibility
   before_script: []
   cache: []
