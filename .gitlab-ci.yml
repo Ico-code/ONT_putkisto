@@ -1,7 +1,9 @@
 default:
   image: node:alpine
   cache:
-    key: $CI_COMMIT_REF_SLUG
+    key:
+      files:
+        - package-lock.json
     paths:
       - .npm/
   before_script:
@@ -12,20 +14,14 @@ variables:
 
 stages:
   - quality-check
-  - accessibility
   - build
   - test
   - deploy
+  - accessibility
 
 include:
   - template: Code-Quality.gitlab-ci.yml
   - template: Verify/Accessibility.gitlab-ci.yml
-
-a11y:
-  stage: accessibility
-  before_script: []
-  cache: []
-  needs: []
 
 code_quality:
   stage: quality-check
@@ -112,3 +108,10 @@ deploy-to-prod:
   environment:
     name: production
     url: https://$PROD_HOST
+
+a11y:
+  stage: accessibility
+  before_script: []
+  cache: []
+  needs:
+    - job: deploy-to-dev
