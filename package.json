@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "format:check": "prettier --check .",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "lucide-react": "^0.555.0",
@@ -27,6 +28,7 @@
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
+    "@vitest/coverage-v8": "^5.0.3",
     "baseline-browser-mapping": "^2.11.25",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
