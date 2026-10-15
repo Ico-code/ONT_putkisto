@@ -14,6 +14,20 @@ CHROMEDRIVER_BIN = os.environ.get("CHROMEDRIVER_BIN", "/usr/bin/chromedriver")
 
 class KanbanViewSeleniumTests(unittest.TestCase):
     @classmethod
+    def test_browser_failure(self):
+        """
+        Launches the browser and then immediately fails.
+        Use this to measure browser spin-up overhead.
+        """
+        driver = webdriver.Chrome()
+        driver.get("https://google.com")
+        
+        # Clean up driver before throwing the failure
+        driver.quit() 
+        
+        self.fail("Forced browser-level failure to measure Selenium spin-up time.")
+        
+    @classmethod
     def setUpClass(cls):
         options = Options()
         options.add_argument("--headless=new")
