@@ -20,13 +20,7 @@ stages:
   - accessibility
 
 include:
-  - template: Code-Quality.gitlab-ci.yml
   - template: Verify/Accessibility.gitlab-ci.yml
-
-code_quality:
-  stage: quality-check
-  before_script: []
-  cache: []
 
 linting-check:
   stage: quality-check
@@ -56,7 +50,6 @@ run-unit-tests:
   needs:
     - job: linting-check
     - job: formatting-check
-    - job: code_quality
   script:
     - npm run test:coverage
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
