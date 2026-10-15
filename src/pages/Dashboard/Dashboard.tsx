@@ -14,15 +14,6 @@ const Dashboard: React.FC<Props> = ({ title = "Dashboard" }) => {
     .sort((a, b) => (b.lastVisited ?? 0) - (a.lastVisited ?? 0))
     .slice(0, 5);
 
-  function App() {
-    debugger; // ❌ ESLint Error: Unexpected 'debugger' statement
-
-    // Trigger: no-unused-vars
-    const ghostVariable = "I am not used"; // ❌ ESLint Error: 'ghostVariable' is defined but never used
-
-    return <h1>Hello World</h1>;
-  }
-
   return (
     <main className="dashboard">
       <h1 className="dashboard__title">{title}</h1>

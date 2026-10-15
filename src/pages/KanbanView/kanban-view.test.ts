@@ -32,6 +32,11 @@ beforeEach(() => {
   vi.restoreAllMocks();
 });
 
+
+test('intentional failure', () => {
+  expect.fail('This test was forced to fail.'); // ❌ Fails immediately with this message
+});
+
 test("renders the project name and the default Kanban columns", async () => {
   renderKanbanView();
 
