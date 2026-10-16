@@ -61,7 +61,7 @@ run-e2e-tests:
     - pip install --no-cache-dir --break-system-packages selenium
   script:
     - npx --yes serve -s dist -l 4173 &
-    - timeout 30 sh -c 'until wget -q -O /dev/null http://127.0.0.1:4173; do sleep 1; done'    
+    - timeout 30 sh -c 'until wget -q -O /dev/null http://127.0.0.1:4173; do sleep 1; done'
     - export CHROME_BIN=/usr/bin/chromium-browser
     - export APP_URL=http://127.0.0.1:4173/projects/p1
     - python3 Scripts/test-kanban-view.py
