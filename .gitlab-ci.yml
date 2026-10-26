@@ -51,9 +51,14 @@ a11y:
     - npx --yes serve -s dist -l 4173 &
     - timeout 30 sh -c 'until wget -q -O /dev/null http://127.0.0.1:4173; do sleep 1; done'
   cache: []
+  needs:
+    - job: build-app
 
 run-unit-tests:
   stage: test
+  needs:
+    - job: linting-check
+    - job: formatting-check
   script:
     - npm run test:coverage
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
@@ -69,6 +74,8 @@ run-e2e-tests:
     - export CHROME_BIN=/usr/bin/chromium-browser
     - export APP_URL=http://127.0.0.1:4173/projects/p1
     - python3 Scripts/test-kanban-view.py
+  needs:
+    - job: build-app
 
 deploy-to-dev:
   stage: deploy
