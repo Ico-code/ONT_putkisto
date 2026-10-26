@@ -10,14 +10,14 @@ default:
     - npm ci --cache .npm --prefer-offline
 
 variables:
-  a11y_urls: http://$DEV_HOST
+  a11y_urls: http://127.0.0.1:4173
 
 stages:
   - quality-check
   - build
+  - accessibility
   - test
   - deploy
-  - accessibility
 
 include:
   - template: Verify/Accessibility.gitlab-ci.yml
@@ -44,6 +44,15 @@ build-app:
   artifacts:
     paths:
       - dist/
+
+a11y:
+  stage: accessibility
+  before_script:
+    - npx --yes serve -s dist -l 4173 &
+    - timeout 30 sh -c 'until wget -q -O /dev/null http://127.0.0.1:4173; do sleep 1; done'
+  cache: []
+  needs:
+    - job: build-app
 
 run-unit-tests:
   stage: test
@@ -101,10 +110,3 @@ deploy-to-prod:
   environment:
     name: production
     url: https://$PROD_HOST
-
-a11y:
-  stage: accessibility
-  before_script: []
-  cache: []
-  needs:
-    - job: deploy-to-dev
